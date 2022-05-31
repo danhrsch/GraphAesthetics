@@ -4,7 +4,6 @@ import pandas as pd
 import torch
 from torch_geometric.data import Data, Dataset, download_url
 
-
 class Grapholulu(Dataset):
     def __init__(self, root, transform=None, pre_transform=None, pre_filter=None):
         super().__init__(root, transform, pre_transform, pre_filter)
@@ -27,22 +26,28 @@ class Grapholulu(Dataset):
             
             df= pd.read_csv(self.raw_paths[0], names=['source', 'target', 'link']).drop('link', axis=1)
             df.index+=1
-            link = pd.read_csv(self.raw_paths[0], names=['source', 'target', 'link'])['link']
+            node_ids = df.index
+            link = pd.read_csv(self.raw_paths[0], names=['source', 'target', 'link'])#['link']
             link.index+=1
 
-            cl=pd.read_csv(self.raw_paths[1]).drop('ImgName', axis=1)
+            cl=pd.read_csv(self.raw_paths[1])
             cl.index+=1
+            di=cl['ImgName'].to_dict()
+            node2index = {v: k for k, v in di.items()}
+            df=df.replace({"source": node2index}).replace({"target": node2index})
+            cl=cl.drop('ImgName', axis=1)
             
             node_feats= torch.tensor(cl.to_numpy(), dtype=torch.float)
             
             
-            edge_feats = torch.tensor(link.to_numpy(), dtype=torch.float)
+            edge_feats = torch.tensor(link['link'].to_numpy(), dtype=torch.float)
             
-            edge_index = torch.tensor(df.to_numpy(), dtype=torch.float)
-            # Get labels info
-            label = 0
-            idx += 1
-            data = Data(x=node_feats, edge_index=edge_index,  y=edge_feats)
+            edges = link.loc[link['source'].isin(node_ids)]
+            edge_index = torch.tensor(df.to_numpy(), dtype=torch.float)#edges.index
+            
+            
+
+            data = Data(x=node_feats, edge_index=edge_index,  y=edge_feats, node2index=node2index)
             
             torch.save((data), self.processed_paths[0])
 
