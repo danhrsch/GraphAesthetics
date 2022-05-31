@@ -38,7 +38,7 @@ class Grapholulu(Dataset):
             
             edge_feats = torch.tensor(link.to_numpy(), dtype=torch.float)
             
-            edge_index = df.index
+            edge_index = torch.tensor(df.to_numpy(), dtype=torch.float)
             # Get labels info
             label = 0
             idx += 1
