@@ -2,9 +2,9 @@ from torch.utils.data.dataset import DFIterDataPipe
 import os.path as osp
 import pandas as pd
 import torch
-from torch_geometric.data import Data, Dataset, download_url
+from torch_geometric.data import Data, Dataset, InMemoryDataset
 
-class Grapholulu(Dataset):
+class Grapholulu(InMemoryDataset):
     def __init__(self, root, transform=None, pre_transform=None, pre_filter=None):
         super().__init__(root, transform, pre_transform, pre_filter)
         self.data = torch.load(self.processed_paths[0])
