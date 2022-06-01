@@ -43,7 +43,7 @@ class Grapholulu(InMemoryDataset):
             edge_feats = torch.tensor(link['link'].to_numpy(), dtype=torch.float)
             
             edges = link.loc[link['source'].isin(node_ids)]
-            edge_index = torch.tensor(df.to_numpy(), dtype=torch.float)#edges.index
+            edge_index = torch.tensor(df.to_numpy(), dtype=torch.float).T
             
             
 
