@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 /root
+/data
 .DS_Store
 
 # C extensions
