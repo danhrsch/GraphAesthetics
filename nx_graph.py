@@ -20,8 +20,7 @@ def get_nx_Graph(node_path, edge_path):
       if i.split(',')[2]=='1' or i.split(',')[2]=='0.5':
         node_list_1.append(i.split(',')[0])
         node_list_2.append(i.split(',')[1])
-        node_list_1.append(i.split(',')[1])
-        node_list_2.append(i.split(',')[0])
+        
     
     img_df = pd.DataFrame({'node_1': node_list_1, 'node_2': node_list_2, 'Link': 1})
     
