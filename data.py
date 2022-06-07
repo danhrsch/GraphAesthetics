@@ -28,11 +28,16 @@ def get_data(path):
             data = Data(x=node_feats, edge_index=edge_index,  y=edge_feats, node2index=node2index)
             return data
 
-if __name__ == '__main__':
-    
-    path = "/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics_metadata/"
+def get_data_split(path):
     data = get_data(path)
     transform = RandomLinkSplit(is_undirected=True)
     train_data, val_data, test_data = transform(data)
+    return train_data, val_data, test_data
+
+if __name__ == '__main__':
+    
+    path = "/GraphAesthetics-PreProcessing/investigating-aesthetics_metadata/"
+    train_data, val_data, test_data = get_data_split(path)
+    
     print(train_data, val_data, test_data)
     
