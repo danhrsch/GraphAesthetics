@@ -34,10 +34,4 @@ def get_data_split(path):
     train_data, val_data, test_data = transform(data)
     return train_data, val_data, test_data
 
-if __name__ == '__main__':
-    
-    path = "/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics_metadata/"
-    train_data, val_data, test_data = get_data_split(path)
-
-    print(train_data.edge_index, val_data.num_nodes)
     
