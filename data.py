@@ -1,5 +1,6 @@
 import torch
 from torch_geometric.data import Data
+from torch_geometric.transforms import RandomLinkSplit
 import pandas as pd
 
 def get_data(path):
@@ -28,5 +29,10 @@ def get_data(path):
             return data
 
 if __name__ == '__main__':
+    
     path = "/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics_metadata/"
-    print(get_data(path))
+    data = get_data(path)
+    transform = RandomLinkSplit(is_undirected=True)
+    train_data, val_data, test_data = transform(data)
+    print(train_data, val_data, test_data)
+    
