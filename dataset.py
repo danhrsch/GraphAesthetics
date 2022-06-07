@@ -1,8 +1,6 @@
-from torch.utils.data.dataset import DFIterDataPipe
-import os.path as osp
 import pandas as pd
 import torch
-from torch_geometric.data import Data, Dataset, InMemoryDataset
+from torch_geometric.data import Data, InMemoryDataset
 
 class Grapholulu(InMemoryDataset):
     def __init__(self, root, transform=None, pre_transform=None, pre_filter=None):
